@@ -9,7 +9,9 @@ export default function App({ Component, pageProps }: AppProps) {
 				fetcher: (url: string) => fetch(url).then((res) => res.json()),
 			}}
 		>
-			<Component {...pageProps} />
+			<div className="w-full h-screen">
+				<Component {...pageProps} />
+			</div>
 		</SWRConfig>
 	);
 }
