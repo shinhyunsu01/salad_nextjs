@@ -12,7 +12,7 @@ interface resItems {
 }
 
 export default function Home() {
-	const { data: resData } = useSWR<resItems>("/api/items");
+	const { data: resData, mutate } = useSWR<resItems>("/api/items");
 	const [itemsFn, { data, loading, error }] = useMutation("/api/items");
 
 	const [filterData, setFilterData] = useState<item[]>();
@@ -51,13 +51,19 @@ export default function Home() {
 		itemsFn(changeValue);
 	};
 	useEffect(() => {
+		if (data) {
+			isItemClick(false);
+			mutate();
+		}
+	}, [data, mutate]);
+	useEffect(() => {
 		if (resData?.items) {
 			let filter = resData?.items.map((ele) => ele.tag);
 			setFilterData(resData?.items);
 			setOptions(Array.from(new Set(["모두", ...filter])));
 		}
 	}, [resData]);
-	// DATABASE_URL='mysql://lndks3xktyxzhfm508sv:pscale_pw_BfzkuGIpGMnDuaYbQHmbQ0XQUhCrUKm0Vvob4vcKtLh@ap-northeast.connect.psdb.cloud/salad?sslaccept=strict'
+
 	return (
 		<div className="p-4 h-full w-full   flex flex-col">
 			{addClick ? <Modal value={addClick} onClick={isAddClick} /> : null}
