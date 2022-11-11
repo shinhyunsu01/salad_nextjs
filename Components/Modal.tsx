@@ -1,5 +1,5 @@
 import React from "react";
-import { Close } from "../icon/icons";
+import { Close } from "./icon/icons";
 
 interface Iprops {
 	children?: React.ReactNode;
