@@ -13,19 +13,18 @@ interface resItems {
 
 export default function Home() {
 	const { data: resData, mutate } = useSWR<resItems>("/api/items");
-	const [itemsFn, { data, loading, error }] = useMutation("/api/items");
+	const [itemsFn] = useMutation("/api/items");
 
 	const [filterData, setFilterData] = useState<item[]>();
 	const [itemClick, isItemClick] = useState(false);
-	const [addClick, isAddClick] = useState(false);
 	const [options, setOptions] = useState<string[]>();
 
 	const defaultValue = {
 		name: "",
-		amount: 0,
+		amount: "",
 		tag: "",
 		unit: "",
-		id: 0,
+		id: 9999,
 	};
 
 	const [clickItemData, setClickItemData] = useState<item>(defaultValue);
@@ -33,9 +32,9 @@ export default function Home() {
 	const onClick = (index?: number) => {
 		isItemClick(true);
 
-		if (index) if (resData) setClickItemData(resData.items[index]);
-
-		setClickItemData(defaultValue);
+		if (index !== undefined) {
+			if (resData) setClickItemData(resData.items[index]);
+		} else setClickItemData(defaultValue);
 	};
 	const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		if (resData) {
@@ -48,16 +47,41 @@ export default function Home() {
 	};
 
 	const itemonChange = (changeValue: item) => {
-		itemsFn(changeValue);
-	};
-	useEffect(() => {
-		if (data) {
-			isItemClick(false);
-			mutate();
+		let lastId = resData && resData.items[resData?.items.length - 1].id + 1;
+		console.log("changeValue", changeValue);
+		if (+changeValue.id === 9999) {
+			mutate(
+				(prev: any) =>
+					prev && {
+						...prev,
+						items: [
+							...prev.items,
+							{
+								...changeValue,
+								id: lastId,
+							},
+						],
+					},
+				false
+			);
+		} else {
+			mutate((prev: any) => {
+				const update = prev.items.map((ele: any) => {
+					if (ele.id === +changeValue.id) {
+						return changeValue;
+					}
+					return ele;
+				});
+				return { ...prev, items: update };
+			}, false);
 		}
-	}, [data, mutate]);
+
+		itemsFn(changeValue);
+		isItemClick(false);
+	};
+
 	useEffect(() => {
-		if (resData?.items) {
+		if (resData) {
 			let filter = resData?.items.map((ele) => ele.tag);
 			setFilterData(resData?.items);
 			setOptions(Array.from(new Set(["모두", ...filter])));
@@ -66,7 +90,6 @@ export default function Home() {
 
 	return (
 		<div className="p-4 h-full w-full   flex flex-col">
-			{addClick ? <Modal value={addClick} onClick={isAddClick} /> : null}
 			{itemClick ? (
 				<Modal value={itemClick} onClick={isItemClick}>
 					{clickItemData && (
@@ -90,7 +113,7 @@ export default function Home() {
 					</select>
 				</div>
 				<div className="flex justify-end">
-					<Button text="추가" onClick={onClick} />
+					<Button text="추가" onClick={() => onClick()} />
 				</div>
 			</div>
 			<div className="h-full overflow-y-auto  w-full">

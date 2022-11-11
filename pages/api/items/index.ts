@@ -10,7 +10,7 @@ async function handler(
 	if (req.method === "POST") {
 		const { body } = req;
 		let item;
-		if (body.id === 0) {
+		if (+body.id === 9999) {
 			item = await client.item.create({
 				data: {
 					name: body.name,
