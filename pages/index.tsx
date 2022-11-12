@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { Button } from "../Components/Button";
 import { Item } from "../Components/Item";
+import { Logo } from "../Components/Logo";
 import { Modal } from "../Components/Modal";
+import { Select } from "../Components/Select";
 import { Table } from "../Components/Table";
 import { defaultValue, item } from "../data/type";
 import useMutation from "../libs/client/useMutation";
@@ -41,7 +43,6 @@ export default function Home() {
 
 	const itemonChange = (changeValue: item) => {
 		let lastId = resData && resData.items[resData?.items.length - 1].id + 1;
-		console.log("changeValue", changeValue);
 		if (+changeValue.id === 9999) {
 			mutate(
 				(prev: any) =>
@@ -60,9 +61,7 @@ export default function Home() {
 		} else {
 			mutate((prev: any) => {
 				const update = prev.items.map((ele: any) => {
-					if (ele.id === +changeValue.id) {
-						return changeValue;
-					}
+					if (ele.id === +changeValue.id) return changeValue;
 					return ele;
 				});
 				return { ...prev, items: update };
@@ -91,22 +90,12 @@ export default function Home() {
 				</Modal>
 			) : null}
 			<div className="w-full flex justify-center">
-				<div className="font-bold text-2xl">
-					<span className="text-green-400">Enough &nbsp;</span>
-					<span>Salad</span>
-				</div>
+				<Logo />
 			</div>
 			<div className=" w-full grid grid-cols-2">
 				<div>
 					<span className="font-bold ">Select : </span>
-					<select
-						className="appearance-none border hover:cursor-pointer outline-none rounded-lg font-bold px-4 py-2 h-10 m-2 select-bordered text-green-300"
-						onChange={onChange}
-					>
-						{options?.map((ele, index) => (
-							<option key={index}>{ele}</option>
-						))}
-					</select>
+					{options && <Select options={options} onChange={onChange} />}
 				</div>
 				<div className="flex justify-end">
 					<Button text="추가" onClick={() => onClick()} />
