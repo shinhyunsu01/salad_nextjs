@@ -17,6 +17,7 @@ async function handler(
 					amount: +body.amount,
 					tag: body.tag,
 					unit: body.unit,
+					minamount: +body.minamount,
 				},
 			});
 		} else {
@@ -29,6 +30,7 @@ async function handler(
 					amount: +body.amount,
 					tag: body.tag,
 					unit: body.unit,
+					minamount: +body.minamount,
 				},
 			});
 		}

@@ -4,7 +4,7 @@ export interface item {
 	tag: string;
 	unit: string;
 	id: number;
-	minamount: number;
+	minamount: number | string;
 }
 
 export const defaultValue = {
@@ -12,5 +12,6 @@ export const defaultValue = {
 	amount: "",
 	tag: "",
 	unit: "",
+	minamount: "",
 	id: 9999,
 };
