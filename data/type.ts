@@ -4,4 +4,13 @@ export interface item {
 	tag: string;
 	unit: string;
 	id: number;
+	minamount: number;
 }
+
+export const defaultValue = {
+	name: "",
+	amount: "",
+	tag: "",
+	unit: "",
+	id: 9999,
+};

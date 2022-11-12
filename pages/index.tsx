@@ -3,7 +3,8 @@ import useSWR from "swr";
 import { Button } from "../Components/Button";
 import { Item } from "../Components/Item";
 import { Modal } from "../Components/Modal";
-import { item } from "../data/type";
+import { Table } from "../Components/Table";
+import { defaultValue, item } from "../data/type";
 import useMutation from "../libs/client/useMutation";
 
 interface resItems {
@@ -18,14 +19,6 @@ export default function Home() {
 	const [filterData, setFilterData] = useState<item[]>();
 	const [itemClick, isItemClick] = useState(false);
 	const [options, setOptions] = useState<string[]>();
-
-	const defaultValue = {
-		name: "",
-		amount: "",
-		tag: "",
-		unit: "",
-		id: 9999,
-	};
 
 	const [clickItemData, setClickItemData] = useState<item>(defaultValue);
 
@@ -117,32 +110,7 @@ export default function Home() {
 				</div>
 			</div>
 			<div className="h-full overflow-y-auto  w-full">
-				<table className="w-full   ">
-					<thead className=" sticky top-0">
-						<tr className="bg-green-300 font-bold text-lg h-12 ">
-							<th>태그</th>
-							<th>목록</th>
-							<th>수량</th>
-						</tr>
-					</thead>
-					<tbody className="text-center">
-						{filterData &&
-							filterData.map((ele, index) => (
-								<tr
-									key={index}
-									onClick={() => onClick(index)}
-									className=" h-12 hover:bg-slate-100 hover:cursor-pointer border-b-2"
-								>
-									<td>{ele.tag}</td>
-									<td>{ele.name}</td>
-									<td>
-										{ele.amount}
-										{ele.unit}
-									</td>
-								</tr>
-							))}
-					</tbody>
-				</table>
+				{filterData && <Table data={filterData} onClick={onClick} />}
 			</div>
 		</div>
 	);
