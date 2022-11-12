@@ -91,7 +91,10 @@ export default function Home() {
 				</Modal>
 			) : null}
 			<div className="w-full flex justify-center">
-				<div className="font-bold text-2xl">Enough Salad</div>
+				<div className="font-bold text-2xl">
+					<span className="text-green-400">Enough &nbsp;</span>
+					<span>Salad</span>
+				</div>
 			</div>
 			<div className=" w-full grid grid-cols-2">
 				<div>
