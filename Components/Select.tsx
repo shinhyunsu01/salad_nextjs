@@ -8,7 +8,7 @@ interface Iprops {
 export const Select = ({ options, onChange }: Iprops) => {
 	return (
 		<select
-			className="appearance-none border hover:cursor-pointer outline-none rounded-lg font-bold px-4 py-2 h-10 m-2 select-bordered text-green-300"
+			className="appearance-none border hover:cursor-pointer outline-none rounded-lg font-bold px-4 py-2 h-10 m-2 select-bordered text-[#0c4941]"
 			onChange={onChange}
 		>
 			{options?.map((ele, index) => (

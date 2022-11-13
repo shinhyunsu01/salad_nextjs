@@ -5,6 +5,7 @@ export interface item {
 	unit: string;
 	id: number;
 	minamount: number | string;
+	click: boolean;
 }
 
 export const defaultValue = {
@@ -14,4 +15,5 @@ export const defaultValue = {
 	unit: "",
 	minamount: "",
 	id: 9999,
+	click: false,
 };

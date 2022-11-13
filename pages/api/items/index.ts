@@ -18,6 +18,7 @@ async function handler(
 					tag: body.tag,
 					unit: body.unit,
 					minamount: +body.minamount,
+					click: body.click,
 				},
 			});
 		} else {
@@ -31,6 +32,7 @@ async function handler(
 					tag: body.tag,
 					unit: body.unit,
 					minamount: +body.minamount,
+					click: body.click,
 				},
 			});
 		}

@@ -87,7 +87,7 @@ export const Item = ({ item, onChange }: Iprops) => {
 							</span>
 						) : null
 					)}
-				<button className=" w-full my-2 bg-black text-green-300 font-bold px-4 py-2 rounded-lg">
+				<button className=" w-full my-2 bg-white border-2 text-[#0c4941] font-bold px-4 py-2 rounded-lg">
 					저장
 				</button>
 			</form>
