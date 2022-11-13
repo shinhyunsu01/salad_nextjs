@@ -23,13 +23,20 @@ export const Table = ({ data, onClick }: Ipros) => {
 						className=" h-12 hover:bg-slate-100 hover:cursor-pointer border-b-2"
 					>
 						<td className="text-gray-600">{ele.tag}</td>
-						<td className="font-bold">{ele.name}</td>
+						<td
+							className={
+								ele.amount <= ele.minamount
+									? "text-orange-500 font-bold"
+									: "font-bold"
+							}
+						>
+							{ele.name}
+						</td>
 						<td>
 							<div className="flex items-center justify-center">
 								{ele.amount <= ele.minamount ? (
 									<div className="h-4 w-4 rounded-full bg-orange-500"></div>
 								) : null}
-
 								<span className="font-bold">
 									&nbsp;
 									{ele.amount}
@@ -43,3 +50,7 @@ export const Table = ({ data, onClick }: Ipros) => {
 		</table>
 	);
 };
+/*
+
+
+*/
